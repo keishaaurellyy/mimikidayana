@@ -1,6 +1,7 @@
 import { ProfilesResponse } from "@/app/types/profiles";
-import Badge from "../ui/badge";
 import Image from "next/image";
+import MarkdownRenderer from "../ui/markdown-renderer";
+import { Badge } from "../ui/badge";
 
 export default function Landing({
   profile,
@@ -11,11 +12,13 @@ export default function Landing({
     <div className="relative min-h-screen">
       {/* left content */}
       <div className="relative z-10 flex items-center min-h-screen px-6 md:px-12 lg:px-32 pt-24 pb-8">
-        <div className="w-1/2 flex flex-col items-start text-left">
-          <Badge label={profile.position} variant="outline" className="mb-5" />
-
+        <div className="w-3/4 flex flex-col items-start text-left">
+          <Badge variant="outline" className="mb-5">
+            {profile.position}
+          </Badge>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-5">
-            Siap Akselerasi{" "}
+            Siap Akselerasi
+            <br />
             <span
               style={{
                 background:
@@ -29,9 +32,9 @@ export default function Landing({
             </span>
           </h1>
 
-          <p className="text-base md:text-lg text-foreground/80 leading-relaxed max-w-md">
-            {profile.description}
-          </p>
+          <div className="text-base md:text-lg text-foreground/80 leading-relaxed max-w-md">
+            <MarkdownRenderer content={profile.description} />
+          </div>
         </div>
       </div>
 

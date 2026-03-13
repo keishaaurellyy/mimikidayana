@@ -1,14 +1,13 @@
 import { ProfileData } from "@/app/types/profiles";
 import SpotlightCard from "../ui/spotlight-card";
 import CircularGallery from "../ui/circular-gallery";
-import ReactMarkdown from "react-markdown";
+import MarkdownRenderer from "../ui/markdown-renderer";
 
 export default function Biodata({ profile }: { profile: ProfileData }) {
   const galleryItems = profile.carousel.map((item) => ({
     image: item.imageCarousel,
     text: "",
   }));
-  console.log(profile.biodata);
 
   return (
     <div>
@@ -21,7 +20,7 @@ export default function Biodata({ profile }: { profile: ProfileData }) {
           <div className="flex flex-col gap-4 text-white md:col-span-2">
             <h2 className="text-2xl font-bold tracking-tight">Biodata</h2>
             <div className="text-white leading-relaxed prose prose-invert">
-              <ReactMarkdown>{profile.biodata}</ReactMarkdown>
+              <MarkdownRenderer content={profile.biodata} />
             </div>
           </div>
 

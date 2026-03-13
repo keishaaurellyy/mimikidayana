@@ -1,6 +1,6 @@
 import { ProfileData } from "@/app/types/profiles";
-import ReactMarkdown from "react-markdown";
 import TextType from "../ui/text-type";
+import MarkdownRenderer from "../ui/markdown-renderer";
 
 export default function VisiMisi({ profile }: { profile: ProfileData }) {
   return (
@@ -24,14 +24,7 @@ export default function VisiMisi({ profile }: { profile: ProfileData }) {
               Visi
             </span>
           </div>
-          <div
-            className="prose max-w-none
-          prose-p:text-foreground/80 prose-p:text-sm prose-p:leading-relaxed prose-p:text-justify
-          prose-strong:text-primary prose-strong:font-bold
-          prose-headings:text-foreground prose-headings:font-black"
-          >
-            <ReactMarkdown>{profile.vision}</ReactMarkdown>
-          </div>
+          <MarkdownRenderer content={profile.vision} />
         </div>
 
         <div className="relative bg-white border border-l-8 border-b-8 border-secondary rounded-lg p-8 md:p-10 flex flex-col gap-6 shadow-sm">
@@ -41,16 +34,7 @@ export default function VisiMisi({ profile }: { profile: ProfileData }) {
               Misi
             </span>
           </div>
-          <div
-            className="prose max-w-none
-          prose-p:text-foreground/80 prose-p:text-sm prose-p:leading-relaxed prose-p:text-justify prose-p:my-1
-          prose-ul:text-foreground/80 prose-ul:text-sm
-          prose-li:marker:text-primary prose-li:my-0.5
-          prose-strong:text-primary prose-strong:font-bold
-          prose-headings:text-foreground prose-headings:font-black"
-          >
-            <ReactMarkdown>{profile.mission}</ReactMarkdown>
-          </div>
+          <MarkdownRenderer content={profile.mission} />
         </div>
       </div>
     </div>
