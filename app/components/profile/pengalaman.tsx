@@ -4,28 +4,28 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { ProfileData } from "@/app/types/profiles";
 
-type OrganizationWithImage = ProfileData["organization"][number] & {
+type ExperienceWithImage = ProfileData["experience"][number] & {
   image?: string | null;
 };
 
 const VISIBLE_COUNT = 3;
 
-export default function Organisasi({ profile }: { profile: ProfileData }) {
-  const organisations = useMemo(
-    () => (profile.organization ?? []) as OrganizationWithImage[],
-    [profile.organization],
+export default function Pengalaman({ profile }: { profile: ProfileData }) {
+  const experiences = useMemo(
+    () => (profile.experience ?? []) as ExperienceWithImage[],
+    [profile.experience],
   );
   const [startIndex, setStartIndex] = useState(0);
 
-  const visibleOrgs = useMemo(
-    () => organisations.slice(startIndex, startIndex + VISIBLE_COUNT),
-    [organisations, startIndex],
+  const visibleExperiences = useMemo(
+    () => experiences.slice(startIndex, startIndex + VISIBLE_COUNT),
+    [experiences, startIndex],
   );
 
-  if (organisations.length === 0) return null;
+  if (experiences.length === 0) return null;
 
   const canScrollLeft = startIndex > 0;
-  const canScrollRight = startIndex + VISIBLE_COUNT < organisations.length;
+  const canScrollRight = startIndex + VISIBLE_COUNT < experiences.length;
 
   const handlePrev = () => {
     if (!canScrollLeft) return;
@@ -35,19 +35,8 @@ export default function Organisasi({ profile }: { profile: ProfileData }) {
   const handleNext = () => {
     if (!canScrollRight) return;
     setStartIndex((prev) =>
-      Math.min(organisations.length - VISIBLE_COUNT, prev + VISIBLE_COUNT),
+      Math.min(experiences.length - VISIBLE_COUNT, prev + VISIBLE_COUNT),
     );
-  };
-
-  const getValidImageUrl = (url?: string | null) => {
-    if (!url || url.trim() === "") return "/1.png";
-
-    try {
-      new URL(url);
-      return url;
-    } catch {
-      return url.startsWith("/") ? url : "/1.png";
-    }
   };
 
   return (
@@ -55,7 +44,7 @@ export default function Organisasi({ profile }: { profile: ProfileData }) {
       <div className="flex flex-row justify-between items-center mb-8 w-full">
         <div>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-primary mb-2">
-            Organisasi
+            Pengalaman
           </h2>
           <p className="text-lg text-gray-600">
             Explore our remarkable achievements and milestones that showcase
@@ -110,37 +99,38 @@ export default function Organisasi({ profile }: { profile: ProfileData }) {
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
-        {visibleOrgs.map((org, index) => {
-          const imageUrl = getValidImageUrl(org.image);
+        {visibleExperiences.map((exp, index) => {
+          const imageUrl = exp.image?.trim() || "/fallback.jpg";
 
           return (
             <div
-              key={`${org.organization}-${org.startYear}-${index}`}
-              className="group relative h-72 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+              key={`${exp.experience}-${exp.startYear}-${index}`}
+              className="group relative h-72 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="absolute inset-0">
-                <Image
-                  src={imageUrl}
-                  alt={org.organization || "organization image"}
-                  fill
-                  className="object-cover transform transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    if (target.dataset.fallback === "true") return;
-                    target.dataset.fallback = "true";
-                    target.src = "/1.png";
-                  }}
-                />
-              </div>
+              {/* Image */}
+              <Image
+                src={imageUrl}
+                alt={exp.experience || "experience image"}
+                fill
+                className="object-cover transform transition-transform duration-500 group-hover:scale-105"
+                onError={(event) => {
+                  const img = event.currentTarget;
+                  if (img.dataset.fallback === "true") return;
+                  img.dataset.fallback = "true";
+                  img.src = "/fallback.jpg";
+                }}
+              />
 
+              {/* Overlay */}
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
 
+              {/* Text */}
               <div className="relative z-10 flex h-full flex-col justify-end p-6 text-white">
                 <p className="text-sm text-white/80 mb-1">
-                  {org.startYear} — {org.endYear}
+                  {exp.startYear} — {exp.endYear}
                 </p>
                 <h3 className="text-lg md:text-xl font-semibold leading-snug">
-                  {org.organization}
+                  {exp.experience}
                 </h3>
               </div>
             </div>

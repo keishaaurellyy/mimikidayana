@@ -2,8 +2,10 @@ import { Suspense } from "react";
 import AppNavbar from "../components/app-navbar";
 import Biodata from "../components/profile/biodata";
 import VisiMisi from "../components/profile/visi-misi";
+import Organisasi from "../components/profile/organisasi";
 import { getProfiles } from "../hooks/mutation";
 import ScrollToSection from "../components/scroll-to-section";
+import Pengalaman from "../components/profile/pengalaman";
 
 export default async function ProfilePage() {
   const { data: profile } = await getProfiles();
@@ -25,11 +27,11 @@ export default async function ProfilePage() {
       </section>
 
       <section id="organisasi">
-        {/* <Organisasi profile={profile} /> */}
+        <Organisasi profile={profile} />
       </section>
 
       <section id="pengalaman">
-        {/* <Pengalaman profile={profile} /> */}
+        <Pengalaman profile={profile} />
       </section>
     </main>
   );

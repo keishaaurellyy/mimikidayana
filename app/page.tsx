@@ -1,6 +1,7 @@
 import { getProfiles } from "./hooks/mutation";
 import Landing from "./components/home/landing";
 import AppNavbar from "./components/app-navbar";
+import Comments from "./components/home/comments";
 
 export default async function Home() {
   const { data } = await getProfiles();
@@ -26,6 +27,7 @@ export default async function Home() {
       </div>
 
       <Landing profile={data} />
+      <Comments />
     </div>
   );
 }

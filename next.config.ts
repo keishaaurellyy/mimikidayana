@@ -3,22 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
-      // localhost development
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "1337",
-        pathname: "/uploads/**",
-      },
-      // ngrok tunnel (wildcard subdomain)
       {
         protocol: "https",
-        hostname: "*.ngrok-free.app",
-        pathname: "/uploads/**",
+        hostname: "be-bumimik.onrender.com",
+        pathname: "/**",
       },
       {
         protocol: "https",
-        hostname: "*.ngrok-free.dev",
+        hostname: "crystal-phalangeal-concernedly.ngrok-free.dev",
         pathname: "/uploads/**",
       },
     ],
