@@ -14,13 +14,8 @@ export default function ArtikelDetail() {
   useEffect(() => {
     const fetchArtikel = async () => {
       try {
-        // TODO: Uncomment this line when Strapi is back online
         const response = await getDetailArtikel(Number(params.id));
         setArtikel(response.data);
-
-        // TEMP: Using mock data from helper.ts for local development
-        // This will be automatically used since fetchApi is mocked
-        console.log("🚀 Using mock data for artikel detail");
       } catch (error) {
         console.error("Error fetching artikel detail:", error);
       } finally {

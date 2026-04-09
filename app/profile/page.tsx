@@ -3,12 +3,20 @@ import AppNavbar from "../components/app-navbar";
 import Biodata from "../components/profile/biodata";
 import VisiMisi from "../components/profile/visi-misi";
 import Organisasi from "../components/profile/organisasi";
-import { getProfiles } from "../hooks/mutation";
+import { getProfile } from "@/lib/database";
 import ScrollToSection from "../components/scroll-to-section";
 import Pengalaman from "../components/profile/pengalaman";
 
 export default async function ProfilePage() {
-  const { data: profile } = await getProfiles();
+  const profile = await getProfile();
+
+  if (!profile) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Profile not found
+      </div>
+    );
+  }
 
   return (
     <main className="px-10 py-16 flex flex-col">

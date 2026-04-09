@@ -205,7 +205,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <Link href="/#comments-section" className="inline-flex">
             <button
               type="button"
-              className="card-nav-cta-button border-0 rounded-[calc(0.75rem-0.2rem)] px-4 items-center h-full font-medium cursor-pointer transition-colors duration-300"
+              className="card-nav-cta-button inline-flex items-center justify-center border-0 rounded-[calc(0.75rem-0.2rem)] px-4 py-2 min-h-10 whitespace-nowrap font-medium leading-none cursor-pointer transition-colors duration-300"
               style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
             >
               Kotak Aspirasi

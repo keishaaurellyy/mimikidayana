@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         hostname: "crystal-phalangeal-concernedly.ngrok-free.dev",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
     ],
   },
 };

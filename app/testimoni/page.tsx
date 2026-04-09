@@ -1,6 +1,7 @@
 import AppNavbar from "../components/app-navbar";
 import TestimoniCard from "../components/testimoni/testimoni-card";
-import { getTestimoni } from "../hooks/mutation";
+import { getTestimonials } from "@/lib/database";
+import { Testimoni } from "../types/testimoni";
 
 const TILT_CLASSES = [
   "hover:-rotate-3 hover:-translate-y-1",
@@ -12,8 +13,7 @@ const TILT_CLASSES = [
 ];
 
 export default async function TestimoniPage() {
-  const { data } = await getTestimoni();
-  console.log(data);
+  const data = await getTestimonials();
   return (
     <main className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 pb-20">
       <div className="px-6 py-16 max-w-7xl mx-auto">
@@ -27,7 +27,7 @@ export default async function TestimoniPage() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-          {data.map((testimoni, index) => (
+          {(data as Testimoni[]).map((testimoni, index) => (
             <TestimoniCard
               key={testimoni.id}
               testimoni={testimoni}

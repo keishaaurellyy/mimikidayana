@@ -4,7 +4,7 @@ import { ProfilesResponse } from "../types/profiles";
 import { TestimoniResponse } from "../types/testimoni";
 
 export async function getProfiles(): Promise<ProfilesResponse> {
-  return fetchApi("/profiles?populate=*");
+  return fetchApi("/profiles");
 }
 
 export async function getTestimoni(): Promise<TestimoniResponse> {
@@ -12,20 +12,20 @@ export async function getTestimoni(): Promise<TestimoniResponse> {
 }
 
 export async function getArtikel(): Promise<ArtikelResponse> {
-  return fetchApi("/articles?populate=*");
+  return fetchApi("/articles");
 }
 
 export async function getDetailArtikel(
   id: number,
 ): Promise<DetailArtikelResponse> {
-  return fetchApi(`/articles/${id}?populate=*`);
+  return fetchApi(`/articles/${id}`);
 }
 
 export async function postComment(data: {
-  nama: string;
+  name: string;
   email: string;
-  aspirasi: string;
-  nomor_whatsapp: string;
+  aspiration: string;
+  phoneNumber: string;
 }) {
   return fetchApi("/comments", {
     method: "POST",

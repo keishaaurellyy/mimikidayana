@@ -2,6 +2,7 @@
 
 import { Testimoni } from "@/app/types/testimoni";
 import Image from "next/image";
+import { useState } from "react";
 
 interface Props {
   testimoni: Testimoni;
@@ -22,6 +23,7 @@ export default function TestimoniCard({
   };
 
   const validImageUrl = getValidImageUrl(testimoni.profileImage);
+  const [imageSrc, setImageSrc] = useState(validImageUrl);
 
   return (
     <div
@@ -33,18 +35,16 @@ export default function TestimoniCard({
       `}
     >
       <div className="flex flex-col items-center gap-1 text-center">
-        <Image
-          src={validImageUrl}
-          alt={testimoni.name}
-          width={56}
-          height={56}
-          className="rounded-full object-cover"
-          onError={(e) => {
-            // Fallback to existing image on error
-            const target = e.target as HTMLImageElement;
-            target.src = "/1.png";
-          }}
-        />
+        <div className="relative h-14 w-14 overflow-hidden rounded-full">
+          <Image
+            src={imageSrc}
+            alt={testimoni.name}
+            fill
+            sizes="56px"
+            className="object-cover object-center"
+            onError={() => setImageSrc("/1.png")}
+          />
+        </div>
         <p className="font-semibold text-lg text-gray-900">{testimoni.name}</p>
         <p className="text-gray-400">{testimoni.position}</p>
       </div>

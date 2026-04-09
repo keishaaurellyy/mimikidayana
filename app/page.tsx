@@ -1,10 +1,18 @@
-import { getProfiles } from "./hooks/mutation";
+import { getProfile } from "@/lib/database";
 import Landing from "./components/home/landing";
 import AppNavbar from "./components/app-navbar";
 import Comments from "./components/home/comments";
 
 export default async function Home() {
-  const { data } = await getProfiles();
+  const data = await getProfile();
+
+  if (!data) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Profile not found
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen w-full font-sans bg-background text-foreground">

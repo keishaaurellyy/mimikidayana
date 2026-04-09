@@ -13,7 +13,10 @@ export default function Landing({
       {/* left content */}
       <div className="relative z-10 flex items-center min-h-screen px-6 md:px-12 lg:px-32 pt-24 pb-8">
         <div className="w-3/4 flex flex-col items-start text-left">
-          <Badge variant="outline" className="mb-5">
+          <Badge
+            variant="secondary"
+            className="mb-5 rounded-full border border-foreground/15 bg-white/70 px-4 py-1.5 text-xs font-medium tracking-[0.04em] text-foreground/80 shadow-sm backdrop-blur-sm"
+          >
             {profile.position}
           </Badge>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-5">

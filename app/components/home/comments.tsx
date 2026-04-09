@@ -1,14 +1,13 @@
 "use client";
 
+import { postComment } from "@/app/hooks/mutation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-// import { postComment } from "@/app/hooks/mutation";
-
 interface CommentFormData {
-  nama: string;
+  name: string;
   email: string;
-  aspirasi: string;
-  nomor_whatsapp: string;
+  aspiration: string;
+  phoneNumber: string;
 }
 
 export default function Comments() {
@@ -29,11 +28,14 @@ export default function Comments() {
     setSubmitStatus("idle");
 
     try {
-      // TODO: Uncomment when API is back online
-      // await postComment(data);
+      const payload = {
+        name: data.name,
+        email: data.email,
+        aspiration: data.aspiration,
+        phoneNumber: data.phoneNumber,
+      };
 
-      // TEMP: Mock successful submission for local development
-      console.log("🚀 Mock comment submission:", data);
+      await postComment(payload);
       setSubmitStatus("success");
       reset();
     } catch (error) {
@@ -70,7 +72,7 @@ export default function Comments() {
               <input
                 type="text"
                 id="nama"
-                {...register("nama", {
+                {...register("name", {
                   required: "Nama wajib diisi",
                   minLength: {
                     value: 3,
@@ -78,13 +80,13 @@ export default function Comments() {
                   },
                 })}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors ${
-                  errors.nama ? "border-red-500" : "border-gray-300"
+                  errors.name ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="Masukkan nama lengkap Anda"
               />
-              {errors.nama && (
+              {errors.name && (
                 <p className="mt-1 text-sm text-red-600">
-                  {errors.nama.message}
+                  {errors.name.message}
                 </p>
               )}
             </div>
@@ -130,7 +132,7 @@ export default function Comments() {
               <input
                 type="tel"
                 id="nomor_whatsapp"
-                {...register("nomor_whatsapp", {
+                {...register("phoneNumber", {
                   required: "Nomor WhatsApp wajib diisi",
                   pattern: {
                     value: /^[0-9+\-\s]+$/,
@@ -142,13 +144,13 @@ export default function Comments() {
                   },
                 })}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors ${
-                  errors.nomor_whatsapp ? "border-red-500" : "border-gray-300"
+                  errors.phoneNumber ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="08xx-xxxx-xxxx"
               />
-              {errors.nomor_whatsapp && (
+              {errors.phoneNumber && (
                 <p className="mt-1 text-sm text-red-600">
-                  {errors.nomor_whatsapp.message}
+                  {errors.phoneNumber.message}
                 </p>
               )}
             </div>
@@ -163,7 +165,7 @@ export default function Comments() {
               </label>
               <textarea
                 id="aspirasi"
-                {...register("aspirasi", {
+                {...register("aspiration", {
                   required: "Aspirasi wajib diisi",
                   minLength: {
                     value: 10,
@@ -176,13 +178,13 @@ export default function Comments() {
                 })}
                 rows={5}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none ${
-                  errors.aspirasi ? "border-red-500" : "border-gray-300"
+                  errors.aspiration ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="Tuliskan aspirasi, komentar, atau pesan Anda di sini..."
               />
-              {errors.aspirasi && (
+              {errors.aspiration && (
                 <p className="mt-1 text-sm text-red-600">
-                  {errors.aspirasi.message}
+                  {errors.aspiration.message}
                 </p>
               )}
             </div>
