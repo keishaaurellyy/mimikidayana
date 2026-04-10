@@ -1,10 +1,19 @@
 import { getProfile } from "@/lib/database";
+import { getArticles } from "@/lib/database";
+import { getTestimonials } from "@/lib/database";
+import { Artikel } from "@/app/types/artikel";
+import { Testimoni } from "@/app/types/testimoni";
 import Landing from "./components/home/landing";
 import AppNavbar from "./components/app-navbar";
 import Comments from "./components/home/comments";
+import ProfileSummary from "./components/home/profile-summary";
+import ArtikelSummary from "./components/home/artikel-summary";
+import TestimonialSummary from "./components/home/testimonial-summary";
 
 export default async function Home() {
   const data = await getProfile();
+  const artikels = (await getArticles()) as Artikel[];
+  const testimonials = (await getTestimonials()) as Testimoni[];
 
   if (!data) {
     return (
@@ -36,6 +45,9 @@ export default async function Home() {
 
       <Landing profile={data} />
       <Comments />
+      <ProfileSummary profile={data} />
+      <ArtikelSummary artikels={artikels} />
+      <TestimonialSummary testimonials={testimonials} />
     </div>
   );
 }
