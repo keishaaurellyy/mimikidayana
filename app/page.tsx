@@ -10,6 +10,8 @@ import ProfileSummary from "./components/home/profile-summary";
 import ArtikelSummary from "./components/home/artikel-summary";
 import TestimonialSummary from "./components/home/testimonial-summary";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const data = await getProfile();
   const artikels = (await getArticles()) as Artikel[];

@@ -199,6 +199,31 @@ export async function createArticle(data: {
   return result[0];
 }
 
+export async function updateArticle(
+  id: number,
+  data: Partial<Parameters<typeof createArticle>[0]>,
+) {
+  const result = await sql`
+    UPDATE articles SET
+      title = COALESCE(${data.title ?? null}, title),
+      slug = COALESCE(${data.slug ?? null}, slug),
+      category = COALESCE(${data.category ?? null}, category),
+      published_date = COALESCE(${data.publishedDate ?? null}::date, published_date),
+      image = COALESCE(${data.image ?? null}, image),
+      description = COALESCE(${data.description ?? null}, description),
+      tags = COALESCE(${data.tags ? JSON.stringify(data.tags) : null}::jsonb, tags)
+    WHERE id = ${id}
+    RETURNING *
+  `;
+  const row = result[0];
+  if (!row) return null;
+  return mapArticleRow(row);
+}
+
+export async function deleteArticle(id: number) {
+  await sql`DELETE FROM articles WHERE id = ${id}`;
+}
+
 // Testimonial functions
 export async function getTestimonials() {
   const result = await sql`
@@ -229,6 +254,51 @@ export async function createTestimonial(data: {
   return result[0];
 }
 
+export async function getTestimonialById(id: number) {
+  const result = await sql`
+    SELECT * FROM testimonials 
+    WHERE id = ${id}
+    LIMIT 1
+  `;
+  const row = result[0];
+  if (!row) return null;
+  return {
+    id: row.id,
+    name: row.name,
+    position: row.position,
+    profileImage: row.profile_image,
+    review: row.review,
+  };
+}
+
+export async function updateTestimonial(
+  id: number,
+  data: Partial<Parameters<typeof createTestimonial>[0]>,
+) {
+  const result = await sql`
+    UPDATE testimonials SET
+      name = COALESCE(${data.name ?? null}, name),
+      position = COALESCE(${data.position ?? null}, position),
+      profile_image = COALESCE(${data.profileImage ?? null}, profile_image),
+      review = COALESCE(${data.review ?? null}, review)
+    WHERE id = ${id}
+    RETURNING *
+  `;
+  const row = result[0];
+  if (!row) return null;
+  return {
+    id: row.id,
+    name: row.name,
+    position: row.position,
+    profileImage: row.profile_image,
+    review: row.review,
+  };
+}
+
+export async function deleteTestimonial(id: number) {
+  await sql`DELETE FROM testimonials WHERE id = ${id}`;
+}
+
 // Comment functions
 export async function getComments() {
   const result = await sql`
@@ -250,4 +320,8 @@ export async function createComment(data: {
     RETURNING *
   `;
   return result[0];
+}
+
+export async function deleteComment(id: number) {
+  await sql`DELETE FROM comments WHERE id = ${id}`;
 }

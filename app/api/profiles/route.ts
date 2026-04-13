@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getProfile, createProfile, updateProfile } from "@/lib/database";
+import { revalidatePath } from "next/cache";
 
 // GET /api/profiles — returns single profile (matches Strapi controller: limit 1)
 export async function GET() {
@@ -23,6 +24,8 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const profile = await createProfile(body);
+    revalidatePath("/");
+    revalidatePath("/profile");
     return NextResponse.json({ data: profile }, { status: 201 });
   } catch (error) {
     console.error("Failed to create profile:", error);
@@ -45,6 +48,8 @@ export async function PUT(request: NextRequest) {
       );
     }
     const profile = await updateProfile(id, data);
+    revalidatePath("/");
+    revalidatePath("/profile");
     return NextResponse.json({ data: profile });
   } catch (error) {
     console.error("Failed to update profile:", error);

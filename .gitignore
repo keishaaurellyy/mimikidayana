@@ -40,4 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
+# cms app
+cms/node_modules/
+cms/.next/
+cms/out/
+cms/.vercel/
+cms/.env.local
+cms/next-env.d.ts
