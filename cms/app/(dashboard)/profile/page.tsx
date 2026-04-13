@@ -286,12 +286,13 @@ export default function ProfilePage() {
                   className={inputClass}
                   placeholder="Tahun selesai"
                 />
-                <input
-                  value={item.image ?? ""}
-                  onChange={(e) => update({ ...item, image: e.target.value })}
-                  className={inputClass}
-                  placeholder="URL logo (opsional)"
-                />
+                <div className="col-span-2 md:col-span-1">
+                  <ImageUpload
+                    label="Logo (Opsional)"
+                    value={item.image ?? ""}
+                    onChange={(url) => update({ ...item, image: url })}
+                  />
+                </div>
               </div>
             )}
           />
@@ -327,12 +328,13 @@ export default function ProfilePage() {
                   className={inputClass}
                   placeholder="Tahun selesai"
                 />
-                <input
-                  value={item.image ?? ""}
-                  onChange={(e) => update({ ...item, image: e.target.value })}
-                  className={inputClass}
-                  placeholder="URL logo (opsional)"
-                />
+                <div className="col-span-2 md:col-span-1">
+                  <ImageUpload
+                    label="Logo (Opsional)"
+                    value={item.image ?? ""}
+                    onChange={(url) => update({ ...item, image: url })}
+                  />
+                </div>
               </div>
             )}
           />
